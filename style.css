@@ -36,6 +36,8 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  justify-content:space-between;
+  
 }
 
 /* MAIN CONTENT  */
@@ -63,7 +65,7 @@ nav {
 .nav-buttons{
     gap: 2rem;
     list-style: none;
-    font-size: 1.3rem;
+    font-size: 1rem;
     padding: 20px;
 }
 
@@ -125,5 +127,10 @@ button.menu-button:hover {
 }
 
 
+/* EDUCATION SECTION */
 
+.education {
+    padding: 10px;
+
+}
 
