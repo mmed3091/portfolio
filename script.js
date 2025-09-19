@@ -1,10 +1,3 @@
-// function toggleMenu() {
-//     const menu = document.querySelector(".menu-links");
-//     const icon = document.querySelector(".hamburger-icon");
-//     menu.classList.toggle("open");
-//     icon.classList.toggle("open");
-// }
-
 /**
  * Function that types out text from a certain element giving the typewriter effect
  */
@@ -12,7 +5,7 @@ function typeWriterEffect() {
 
 
     const elements = document.querySelectorAll(".typewriter");
-    const speed = 100;
+    const speed = 50;
 
 
     elements.forEach((element) => {
@@ -32,8 +25,25 @@ function typeWriterEffect() {
 
     })
     
-
 }
+
+function loadText(file) {
+
+  fetch(file).then(response => {
+    if(!response.ok) {
+      throw new Error("Failed to load text from: " + file);
+    }
+    return response.text();
+  })
+  .then(data => {
+    document.getElementById("main-content").innerHTML = data;
+  })
+  .catch(error => {
+    document.getElementById("main-content").textContent = error.message;
+  })
+}
+
+
 
 /** FUNCTION CALLS */
 

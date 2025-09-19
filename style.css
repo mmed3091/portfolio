@@ -32,11 +32,22 @@ html, body {
     height: 100%;         
     margin: 0;            
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* MAIN CONTENT  */
+
+.main {
+    flex: 1; /* to fill the space */
+}
 
 
 /* DESKTOP NAV */
 
-nav, .nav-links {
+nav, .nav-buttons {
     display: flex;
     
 }
@@ -49,7 +60,7 @@ nav {
     
 }
 
-.nav-links{
+.nav-buttons{
     gap: 2rem;
     list-style: none;
     font-size: 1.3rem;
@@ -68,8 +79,22 @@ a:hover {
     text-decoration: underline;
     text-underline-offset: 0.5rem;
     text-decoration-color: rgb(3, 107, 32);
+}
 
-
+button.menu-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: rgb(32, 194, 14);           /* optional: make it look like a link */
+  cursor: pointer;
+}
+button.menu-button:hover {
+    color: rgb(3, 107, 32);
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
+    text-decoration-color: rgb(3, 107, 32);
 }
 
 .logo {

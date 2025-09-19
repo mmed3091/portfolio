@@ -12,23 +12,28 @@
 </head>
 <body class="body">
 
-    <nav id="desktop-nav">
-        <div class="logo text-colour typewriter">Name</div>
-        <div>
-            <ul class="nav-links">
-                <li><a href="#about" >About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <div class="wrapper">
+        <nav id="desktop-nav">
+            <div class="logo text-colour typewriter">Name</div>
+            <div>
+                <ul class="nav-buttons">
+                    <li><button class="menu-button" id="about-button" onclick="loadText('about.html')">About</button></li>
+                    <li><button class="menu-button" id="education-button">Education</button></li>
+                    <li><button class="menu-button" id="expeience-button">Experience</button></li>
+                    <li><button class="menu-button" id="projects-button">Projects</button></li>
+                    <li><button class="menu-button" id="contact-button">Contact</button></li>
+                </ul>
+            </div>
+            
 
-    </nav>
-    
-    <footer class="footer">
-        <p class="text-colour typewriter" id="cursor">Copyright &#169; 2025 Name. All Rights Reserved. </p>
-    </footer>
+        </nav>
+
+        <div class="main text-colour typewriter" id="main-content">Main content</div>
+        
+        <footer class="footer">
+            <p class="text-colour typewriter" id="cursor">Copyright &#169; 2025 Name. All Rights Reserved. </p>
+        </footer>
+    </div>
     <script src="script.js"></script>
     
 </body>
