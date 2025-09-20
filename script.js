@@ -1,52 +1,50 @@
 /**
  * Function that types out text from a certain element giving the typewriter effect
  */
-function typeWriterEffect() {
+async function typeWriterEffect(file, container) {
 
-
-    const elements = document.querySelectorAll(".typewriter");
-    const speed = 50;
-
-
-    elements.forEach((element) => {
-        const text = element.textContent;
-        element.textContent = "";
-
-        let i = 0;
-        function typeWriter() {
-          if (i < text.length) {
-            element.textContent += text.charAt(i); // fill the element with teext one characte at a time
-            i++;
-            setTimeout(typeWriter, speed);
-          }
-        }
-
-        typeWriter();
-
-    })
-    
-}
-
-function loadText(file) {
-
-  fetch(file).then(response => {
-    if(!response.ok) {
-      throw new Error("Failed to load text from: " + file);
+    const element = document.querySelector(container); // retrieve container that will have text typed in
+    if(!element) {
+      console.error("Container not found: ", container);
+      return;
     }
-    return response.text();
-  })
-  .then(data => {
-    document.getElementById("main-content").innerHTML = data;
-  })
-  .catch(error => {
-    document.getElementById("main-content").textContent = error.message;
-  })
+
+    element.textContent = "";
+    try{
+      const response = await fetch(file); // retrieve provided file
+
+      if(!response.ok) {
+        throw new Error("Failed to load text from file: " + file);
+      }
+
+      const text = await response.text(); // retrieve text from file
+      const parser = new DOMParser();
+      const docFile = parser.parseFromString(text, 'text/html');
+      const fullText = docFile.body.textContent;
+
+      
+      const speed = 5;
+      let i = 0;
+      function typeWriter() {
+        if (i < fullText.length) {
+          element.textContent += fullText.charAt(i); // fill the container with text one character at a time
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+
+      typeWriter();
+    }
+    catch (error){
+      element.textContent = error.message;
+
+    }  
 }
 
 
 
 /** FUNCTION CALLS */
 
-document.addEventListener("DOMContentLoaded", typeWriterEffect);
+// document.addEventListener("DOMContentLoaded", typeWriterEffect);
 
 
