@@ -1,62 +1,91 @@
-const typeWriterController = {}
+const typeWriterController = {} 
 
 /**
  * Function that types out text using the typewriter effect
  */
+
+
 async function typeWriterEffect(file, container) {
+  const element = document.querySelector(container); // retrieve container that will have text typed in
+  if (!element) {
+    console.error("Container not found: ", container);
+    return;
+  }
 
-    const element = document.querySelector(container); // retrieve container that will have text typed in
-    if(!element) {
-      console.error("Container not found: ", container);
-      return;
+  if (typeWriterController[container]) {
+    clearTimeout(typeWriterController[container].timeoutId); // cancel previous timeout when new one is invoked
+    typeWriterController[container].cancelled = true;
+  }
+
+  const controller = { // controller of the current typewriting execution 
+    cancelled: false,
+    timeoutId: null,
+  };
+  typeWriterController[container] = controller;
+
+  element.innerHTML = ""; // make the current container empty ready for new text to be typed in
+
+  try {
+    const response = await fetch(file); // retrieve given file
+    if (!response.ok) {
+      throw new Error("Failed to load text from file: " + file);
     }
 
-    if(typeWriterController[container]) {
-      clearTimeout(typeWriterController[container].timeoutId); // cancel timeout of the previous function execution
-      typeWriterController[container].cancelled = true;
-    }
+    const text = await response.text(); // extract text from the file
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html"); // parse the text as a html doc with html elements
 
-    const controller = { // controller of the current typewriting execution 
-      cancelled: false,
-      timeoutId: null
-    };
+    const speed = 1;
 
-    typeWriterController[container] = controller;
+    /**
+     * Recursively types out text from a html document source node into a target parent html 
+     * element preserving DOM structure and formatting simulating typewriter effect
+     * 
+     * @param {Node} sourceNode - DOM node from the html document to be typed out
+     * @param {HTMLElement} targetParent - DOM element into which the text will be typed out 
+     * @returns {<void>}
+     */
+    async function typeNode(sourceNode, targetParent) {
+      if (controller.cancelled) return; 
 
-    element.textContent = "";
-    try{
-      const response = await fetch(file); // retrieve provided file
+      if (sourceNode.nodeType === Node.TEXT_NODE) { // if node type is text insert/type out text into the live DOM element
+        const text = sourceNode.textContent;
+        const span = document.createElement("span");
+        targetParent.appendChild(span); // add newly created element to the the target live DOM element
 
-      if(!response.ok) {
-        throw new Error("Failed to load text from file: " + file);
-      }
+        for (let i = 0; i < text.length; i++) {
+          if (controller.cancelled) return;
+          span.textContent += text[i]; // add text to the newly created element
 
-      const text = await response.text(); // retrieve text from file
-      const parser = new DOMParser();
-      const docFile = parser.parseFromString(text, 'text/html');
-      const fullText = docFile.body.textContent;
-
-      
-      const speed = 5;
-      let i = 0;
-      function typeWriter() {
-        if(controller.cancelled) { // if execution is cancelled
-          return;
+  
+          await new Promise((res) => {
+            controller.timeoutId = setTimeout(res, speed); // typewriter delay effect
+          });
         }
-        if (i < fullText.length) {
-          element.textContent += fullText.charAt(i); // fill the container with text one character at a time
-          i++;
-          controller.timeoutId = setTimeout(typeWriter, speed);
+      } else if (sourceNode.nodeType === Node.ELEMENT_NODE) { // if node type is an element creates identical element and traverse through its child nodes
+
+        const el = document.createElement(sourceNode.tagName);
+        for (let attr of sourceNode.attributes) { 
+          el.setAttribute(attr.name, attr.value); 
+        }
+        targetParent.appendChild(el);
+
+
+        for (let child of sourceNode.childNodes) {
+          await typeNode(child, el);
         }
       }
-
-      typeWriter();
     }
-    catch (error){
-      element.textContent = error.message;
 
-    }  
+    for (let node of doc.body.childNodes) { // begin typewriting 
+      await typeNode(node, element);
+    }
+  } catch (error) {
+    element.textContent = error.message;
+  }
 }
+
+
 
 
 
@@ -87,21 +116,6 @@ function loadText(file, container) {
 }
 
 
-/**
- * Stop typewriting effect when other buttons are clicked
- */
-document.querySelectorAll('#education-button, #projects-button').forEach( button =>{
-  button.addEventListener('click', () => {
-    Object.values(typeWriterController).forEach(controller => {
-      controller.cancelled = true;
-      if(controller.timeoutId) {
-        clearTimeout(controller.timeoutId);
-      }
-    })
-    
-  })
-})
-
 
 /** 
  * On-load function
@@ -113,5 +127,34 @@ document.addEventListener(
   }
 
 );
+
+let isHackerModeOn = false;
+function hackerMode () {
+
+  const background = document.querySelectorAll('.body, nav');
+  const text = document.querySelectorAll('.text-colour, a, .menu-button, #desktop-nav');
+
+  let backgroundColour = 'black';
+  let textColour = '#00FF00';
+
+  if(isHackerModeOn) {
+    backgroundColour = 'white';
+    textColour = 'grey';
+    isHackerModeOn = false;
+  }
+  else {
+    isHackerModeOn = true;
+  }
+
+  background.forEach (el => {
+    el.style.backgroundColor = backgroundColour;
+  });
+
+  text.forEach(el =>{
+    el.style.color = textColour;
+
+  });
+
+}
 
 

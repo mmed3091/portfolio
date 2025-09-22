@@ -44,12 +44,15 @@ html, body {
 
 .main {
     flex: 1; /* to fill the space */
-    padding-left: 10px;
 }
 
-nav {
+nav{
     height: 2vh;
     background-color: white;
+    color: black;
+    padding-left: 3px;
+
+
 }
 
 .footer-buttons{
