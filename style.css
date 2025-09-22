@@ -9,7 +9,8 @@
 }
 
 .text-colour {
-    color: rgb(32, 194, 14);
+    /* color: rgb(32, 194, 14); */
+    color:grey;
     
 }
 
@@ -18,7 +19,7 @@ body {
     font-family: "Fira Code", sans-serif;
     font-weight: 400;
     font-style: normal;
-    background-color: black;
+    background-color: white;
     display: flex;    /* arrange children easily */      
     flex-direction: column;    /* stack children vertically */
     min-height: 100vh;         
@@ -58,7 +59,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     height: 10vh;
-    background-color: black;
+    background-color: white;
     
 }
 
@@ -71,16 +72,19 @@ nav {
 
 
 a {
-    color: rgb(32, 194, 14);
+    /* color: rgb(32, 194, 14); */
+    color: grey;
     text-decoration: none;
     text-decoration-color: white;
 }
 
 a:hover {
-    color: rgb(3, 107, 32);
+    /* color: rgb(3, 107, 32); */
+    color: black;
     text-decoration: underline;
     text-underline-offset: 0.5rem;
-    text-decoration-color: rgb(3, 107, 32);
+    text-decoration-color: black;
+    
 }
 
 button.menu-button {
@@ -89,14 +93,16 @@ button.menu-button {
   padding: 0;
   margin: 0;
   font: inherit;
-  color: rgb(32, 194, 14);           /* optional: make it look like a link */
+  /* color: rgb(32, 194, 14);            */
+  color: grey;
   cursor: pointer;
 }
 button.menu-button:hover {
-    color: rgb(3, 107, 32);
+    /* color: rgb(3, 107, 32); */
+    color: black;
     text-decoration: underline;
     text-underline-offset: 0.5rem;
-    text-decoration-color: rgb(3, 107, 32);
+    text-decoration-color: black;
 }
 
 .logo {
