@@ -5,7 +5,6 @@
 * {
     margin: 0;
     padding: 0;
-
 }
 
 .text-colour {
@@ -15,7 +14,6 @@
 }
 
 body {
-
     font-family: "Fira Code", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -33,6 +31,7 @@ html, body {
     height: 100%;         
     margin: 0;            
 }
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -41,49 +40,34 @@ html, body {
   
 }
 
-/* MAIN CONTENT  */
+/* NAVBAR, MAIN BODY, FOOTER */
 
 .main {
     flex: 1; /* to fill the space */
-}
-
-
-/* DESKTOP NAV */
-
-nav, .nav-buttons {
-    display: flex;
-    
+    padding-left: 10px;
 }
 
 nav {
-    justify-content: space-between;
-    align-items: center;
-    height: 10vh;
+    height: 2vh;
     background-color: white;
-    
 }
 
-.nav-buttons{
+.footer-buttons{
+    display:flex;
     gap: 2rem;
     list-style: none;
     font-size: 1rem;
     padding: 20px;
 }
 
-
 a {
-    /* color: rgb(32, 194, 14); */
     color: grey;
     text-decoration: none;
     text-decoration-color: white;
 }
 
-a:hover {
-    /* color: rgb(3, 107, 32); */
-    color: black;
-    text-decoration: underline;
-    text-underline-offset: 0.5rem;
-    text-decoration-color: black;
+a:hover, button.menu-button:hover {
+    color: black; 
     
 }
 
@@ -93,45 +77,28 @@ button.menu-button {
   padding: 0;
   margin: 0;
   font: inherit;
-  /* color: rgb(32, 194, 14);            */
   color: grey;
   cursor: pointer;
 }
-button.menu-button:hover {
-    /* color: rgb(3, 107, 32); */
-    color: black;
-    text-decoration: underline;
-    text-underline-offset: 0.5rem;
-    text-decoration-color: black;
-}
 
 .logo {
-    font-size: 2rem;
-    padding-left: 20px;
+    font-size: 1.5rem;
+    padding-right: 20px;
 }
 
 .logo:hover {
     cursor: default;
 }
 
-/* FOOTER */
-
-
 .footer {
     margin-top: auto;   /* push the footer to the bottom of the page */
-    padding: 1rem 0;    /* vertical spacing */
-    text-align: center; /* center text */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid black;
+    height: 5vh;
+    
 }
-#cursor::after { /* add blinking cursor after the element*/
-    content: '|';
-    animation: blink 0.7s infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
 
 /* SECTIONS*/
 

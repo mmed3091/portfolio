@@ -90,7 +90,7 @@ function loadText(file, container) {
 /**
  * Stop typewriting effect when other buttons are clicked
  */
-document.querySelectorAll('#education-button', '#projects-button').forEach( button =>{
+document.querySelectorAll('#education-button, #projects-button').forEach( button =>{
   button.addEventListener('click', () => {
     Object.values(typeWriterController).forEach(controller => {
       controller.cancelled = true;

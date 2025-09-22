@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <title>My Portfolio</title> -->
-
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mediaqueries.css">
 
@@ -14,9 +12,14 @@
 
     <div class="wrapper">
         <nav id="desktop-nav">
-            <div class="logo text-colour typewriter">Name</div>
+        </nav>
+
+        <div class="main text-colour typewriter" id="main-content">Main content</div>
+        
+        <footer class="footer">
+            
             <div>
-                <ul class="nav-buttons">
+                <ul class="footer-buttons">
                     <li><button class="menu-button" id="about-button" onclick="typeWriterEffect('about.html', '#main-content')">About</button></li>
                     <li><button class="menu-button" id="education-button" onclick="loadText('education.html','main-content')">Education</button></li>
                     <li><button class="menu-button" id="projects-button" onclick="loadText('projects.html', 'main-content')">Projects</button></li>
@@ -25,14 +28,8 @@
 
                 </ul>
             </div>
-            
+            <div class="logo text-colour typewriter">Name</div>
 
-        </nav>
-
-        <div class="main text-colour typewriter" id="main-content">Main content</div>
-        
-        <footer class="footer">
-            <p class="text-colour typewriter" id="cursor">Copyright &#169; 2025 Name. All Rights Reserved. </p>
         </footer>
     </div>
     <script src="script.js"></script>
@@ -40,11 +37,3 @@
 </body>
 </html>
 
-<!-- TODO:
-
-- README.md
-- Fix typewriter effect to all sections
-- fix overlapping/asynchronous typing
-- Format footer and navbar
-
--->
