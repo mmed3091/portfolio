@@ -2,13 +2,6 @@
 
 This is a personal portfolio website showcasing skills, education, projects, and contact information. 
 
-### Built with
-
-* HTML
-* Javascript
-* CSS
-
-
 ### Executing program
 
 * Run the following command in the root folder of the project where index.html file is located
