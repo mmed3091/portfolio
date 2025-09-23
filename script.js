@@ -1,9 +1,14 @@
-const typeWriterController = {} 
+/** -------GLOBAL VARIABLES -------*/
+const typeWriterController = {};
+let isHackerModeOn = false;
+
 
 /**
- * Function that types out text using the typewriter effect
+ * Types out text from a file into a container simulating a typewriter effect
+ * @param {*} file - A html file name
+ * @param {*} container - A DOM element ID name
+ * @returns  {<void>}
  */
-
 
 async function typeWriterEffect(file, container) {
   const element = document.querySelector(container); // retrieve container that will have text typed in
@@ -17,7 +22,7 @@ async function typeWriterEffect(file, container) {
     typeWriterController[container].cancelled = true;
   }
 
-  const controller = { // controller of the current typewriting execution 
+  const controller = {
     cancelled: false,
     timeoutId: null,
   };
@@ -38,17 +43,19 @@ async function typeWriterEffect(file, container) {
     const speed = 1;
 
     /**
-     * Recursively types out text from a html document source node into a target parent html 
+     * Recursively types out text from a html document source node into a target parent html
      * element preserving DOM structure and formatting simulating typewriter effect
-     * 
+     *
      * @param {Node} sourceNode - DOM node from the html document to be typed out
-     * @param {HTMLElement} targetParent - DOM element into which the text will be typed out 
+     * @param {HTMLElement} targetParent - DOM element into which the text will be typed out
      * @returns {<void>}
      */
     async function typeNode(sourceNode, targetParent) {
-      if (controller.cancelled) return; 
+      if (controller.cancelled) return;
 
-      if (sourceNode.nodeType === Node.TEXT_NODE) { // if node type is text insert/type out text into the live DOM element
+      if (sourceNode.nodeType === Node.TEXT_NODE) {
+        // if node type is text insert/type out text into the live DOM element
+
         const text = sourceNode.textContent;
         const span = document.createElement("span");
         targetParent.appendChild(span); // add newly created element to the the target live DOM element
@@ -57,19 +64,18 @@ async function typeWriterEffect(file, container) {
           if (controller.cancelled) return;
           span.textContent += text[i]; // add text to the newly created element
 
-  
           await new Promise((res) => {
             controller.timeoutId = setTimeout(res, speed); // typewriter delay effect
           });
         }
-      } else if (sourceNode.nodeType === Node.ELEMENT_NODE) { // if node type is an element creates identical element and traverse through its child nodes
+      } else if (sourceNode.nodeType === Node.ELEMENT_NODE) {
+        // if node type is an element creates identical element and traverse through its child nodes
 
         const el = document.createElement(sourceNode.tagName);
-        for (let attr of sourceNode.attributes) { 
-          el.setAttribute(attr.name, attr.value); 
+        for (let attr of sourceNode.attributes) {
+          el.setAttribute(attr.name, attr.value);
         }
         targetParent.appendChild(el);
-
 
         for (let child of sourceNode.childNodes) {
           await typeNode(child, el);
@@ -77,7 +83,8 @@ async function typeWriterEffect(file, container) {
       }
     }
 
-    for (let node of doc.body.childNodes) { // begin typewriting 
+    for (let node of doc.body.childNodes) {
+      // begin typewriting
       await typeNode(node, element);
     }
   } catch (error) {
@@ -87,74 +94,72 @@ async function typeWriterEffect(file, container) {
 
 
 
+/** Loads a html file and inserts its contents into a container element
+/**
+ * 
+ * @param {*} file - A html file name
+ * @param {*} container - A DOM element ID name
+ * @returns {<void>}
+ */
 
-
-
-/** Load html from a file and place it inside a container */
 function loadText(file, container) {
-  
-  fetch(file) 
-  .then(response => {
-    if(!response.ok) {
-      throw new Error("Failed to load file: " + response.status);
-    }
-    return response.text(); // html text from the file
-  })
-  .then(html => {
-    const element = document.getElementById(container);
-    if (!element) {
-      console.error("Container not found: ", container);
-      return;
-    }
-    element.innerHTML = html;
-  })
-  .catch(error => {
-    console.error("Error loading html file: ", error);
-  });
-
-
+  fetch(file)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load file: " + response.status);
+      }
+      return response.text(); // html text from the file
+    })
+    .then((html) => {
+      const element = document.getElementById(container);
+      if (!element) {
+        console.error("Container not found: ", container);
+        return;
+      }
+      element.innerHTML = html;
+    })
+    .catch((error) => {
+      console.error("Error loading html file: ", error);
+    });
 }
 
 
-
-/** 
- * On-load function
+/** Sets different background and text colours on the page
+ * 
+ * @returns {<void>}
  */
+function hackerMode() {
+  
+  const background = document.querySelectorAll(".body, nav");
+  const text = document.querySelectorAll(
+    ".text-colour, a, .menu-button, #desktop-nav"
+  );
 
-document.addEventListener(
-  "DOMContentLoaded", () => {
-    typeWriterEffect("about.html", "#main-content");
-  }
+  let backgroundColour = "black";
+  let textColour = "#00FF00";
 
-);
-
-let isHackerModeOn = false;
-function hackerMode () {
-
-  const background = document.querySelectorAll('.body, nav');
-  const text = document.querySelectorAll('.text-colour, a, .menu-button, #desktop-nav');
-
-  let backgroundColour = 'black';
-  let textColour = '#00FF00';
-
-  if(isHackerModeOn) {
-    backgroundColour = 'white';
-    textColour = 'grey';
+  if (isHackerModeOn) {
+    backgroundColour = "white";
+    textColour = "rgb(65, 63, 63)";
     isHackerModeOn = false;
-  }
-  else {
+  } else {
     isHackerModeOn = true;
   }
 
-  background.forEach (el => {
+  background.forEach((el) => {
     el.style.backgroundColor = backgroundColour;
   });
 
-  text.forEach(el =>{
+  text.forEach((el) => {
     el.style.color = textColour;
-
   });
-
 }
 
+/**
+ * On load event
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  typeWriterEffect("about.html", "#main-content");
+});
 

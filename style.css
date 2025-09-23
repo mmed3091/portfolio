@@ -8,9 +8,7 @@
 }
 
 .text-colour {
-    /* color: rgb(32, 194, 14); */
-    color:grey;
-    
+    color:rgb(65, 63, 63);
 }
 
 body {
@@ -18,8 +16,8 @@ body {
     font-weight: 400;
     font-style: normal;
     background-color: white;
-    display: flex;    /* arrange children easily */      
-    flex-direction: column;    /* stack children vertically */
+    display: flex;        
+    flex-direction: column;   
     min-height: 100vh;         
 }
 
@@ -40,10 +38,8 @@ html, body {
   
 }
 
-/* NAVBAR, MAIN BODY, FOOTER */
-
 .main {
-    flex: 1; /* to fill the space */
+    flex: 1; 
 }
 
 nav{
@@ -51,8 +47,7 @@ nav{
     background-color: white;
     color: black;
     padding-left: 3px;
-
-
+    font-weight: 500;
 }
 
 .footer-buttons{
@@ -64,14 +59,13 @@ nav{
 }
 
 a {
-    color: grey;
+    color:rgb(65, 63, 63);
     text-decoration: none;
     text-decoration-color: white;
 }
 
 a:hover, button.menu-button:hover {
     color: black; 
-    
 }
 
 button.menu-button {
@@ -80,7 +74,7 @@ button.menu-button {
   padding: 0;
   margin: 0;
   font: inherit;
-  color: grey;
+  color:rgb(65, 63, 63);
   cursor: pointer;
 }
 
@@ -94,19 +88,21 @@ button.menu-button {
 }
 
 .footer {
-    margin-top: auto;   /* push the footer to the bottom of the page */
+    margin-top: auto;   
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid black;
     height: 5vh;
-    
 }
-
-/* SECTIONS*/
 
 .section-divider {
     padding: 10px;
 
+}
+
+.project-list {
+    padding-left: 15px; 
+    list-style: '--';
 }
 
