@@ -61,12 +61,12 @@ nav{
 a {
     color:rgb(65, 63, 63);
     text-decoration: none;
-    text-decoration-color: white;
+    
 }
 
-a:hover, button.menu-button:hover {
+/* a:hover, button.menu-button:hover {
     color: black; 
-}
+} */
 
 button.menu-button {
   background: none;

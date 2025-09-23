@@ -129,7 +129,7 @@ function loadText(file, container) {
  * @returns {<void>}
  */
 function hackerMode() {
-  
+
   const background = document.querySelectorAll(".body, nav");
   const text = document.querySelectorAll(
     ".text-colour, a, .menu-button, #desktop-nav"
@@ -148,12 +148,18 @@ function hackerMode() {
 
   background.forEach((el) => {
     el.style.backgroundColor = backgroundColour;
+
   });
 
   text.forEach((el) => {
-    el.style.color = textColour;
+    // el.style.color = textColour;
+    el.style.setProperty("color", textColour, "important");
+
   });
 }
+
+
+
 
 /**
  * On load event
@@ -162,4 +168,6 @@ function hackerMode() {
 document.addEventListener("DOMContentLoaded", () => {
   typeWriterEffect("about.html", "#main-content");
 });
+
+
 
