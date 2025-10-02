@@ -152,7 +152,6 @@ function hackerMode() {
   });
 
   text.forEach((el) => {
-    // el.style.color = textColour;
     el.style.setProperty("color", textColour, "important");
 
   });
